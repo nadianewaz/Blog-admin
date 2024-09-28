@@ -9,19 +9,20 @@ import {Button, Form, Modal, notification} from "antd";
 import Title from "antd/es/typography/Title";
 
 // @Components
-import CoursesTable from "@/components/tables/coursesTable";
-import CourseForm from "@/components/forms/courseForm";
-import AdvanceSearchAndFilter from "@/components/ui/AdvanceSearchAndFilter";
+import BlogForm from "@/components/forms/blogForm";
+import BlogTable from "@/components/tables/blogTable";
+
+
 
 // @Types
 // import {PaginationType} from "@/models/paginationType";
 
 // @Api
-import {courseCreateApi, courseDeleteApi, courseListApi, courseUpdateApi} from "@/lib/services/courses";
+// import {courseCreateApi, courseDeleteApi, courseListApi, courseUpdateApi} from "@/lib/services/courses";
 
 // @Models
 import {Course} from '@/models/coursesType';
-import PaginationWithParams from "@/components/ui/PaginationWithParams";
+// import PaginationWithParams from "@/components/ui/PaginationWithParams";
 
 
 const BlogList = () => {
@@ -42,19 +43,19 @@ const BlogList = () => {
 
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    fetchCourse(currentPage, pageSize, filter);
-  }, [currentPage, pageSize, filter]);
+  // useEffect(() => {
+  //   fetchCourse(currentPage, pageSize, filter);
+  // }, [currentPage, pageSize, filter]);
 
   // fetchUser
-  const fetchCourse = async (page: number, size: number, filter: string) => {
-    setIsLoading(true)
-    // const pagination: PaginationType = {page, size}
-    const response: any = await courseListApi()
-    setTotalElement(response.pagination?.totalItems);
-    setCourse(response.data)
-    setIsLoading(false)
-  };
+  // const fetchCourse = async (page: number, size: number, filter: string) => {
+  //   setIsLoading(true)
+  //   // const pagination: PaginationType = {page, size}
+  //   const response: any = await courseListApi()
+  //   setTotalElement(response.pagination?.totalItems);
+  //   setCourse(response.data)
+  //   setIsLoading(false)
+  // };
 
   // onClick handle functions
   const showModal = () => {
@@ -69,22 +70,22 @@ const BlogList = () => {
   };
 
   const onClickSave = () => {
-    setConfirmLoading(true);
+    // setConfirmLoading(true);
 
-    form
-      .validateFields()
-      .then((values: any) => {
-        const {confirm, classes, ...course} = values
-        course['class'] = classes.value
-        if (!!editCourse) {
-          const id: string = editCourse?._id;
-          onCourseUpdateFormSubmit(course, id)
-        } else {
-          onCoursesAddFormSubmit(course)
-        }
-      }).catch((error) => {
-      setConfirmLoading(false);
-    });
+    // form
+    //   .validateFields()
+    //   .then((values: any) => {
+    //     const {confirm, classes, ...course} = values
+    //     course['class'] = classes.value
+    //     if (!!editCourse) {
+    //       const id: string = editCourse?._id;
+    //       onCourseUpdateFormSubmit(course, id)
+    //     } else {
+    //       onCoursesAddFormSubmit(course)
+    //     }
+    //   }).catch((error) => {
+    //   setConfirmLoading(false);
+    // });
   }
 
   const onClickCourseEdit = (course: Course) => {
@@ -93,16 +94,16 @@ const BlogList = () => {
     showModal()
   };
 
-  const onClickCourseDelete = (user: Course) => {
-    Modal.confirm({
-      title: `Are you sure you want to delete ${user.courseName} ?`,
-      content: 'This action cannot be undone.',
-      centered: true,
-      onOk() {
-        onCourseDeleteConfirm(user._id);
-      },
-    });
-  };
+  // const onClickCourseDelete = (user: Course) => {
+  //   Modal.confirm({
+  //     title: `Are you sure you want to delete ${user.courseName} ?`,
+  //     content: 'This action cannot be undone.',
+  //     centered: true,
+  //     onOk() {
+  //       onCourseDeleteConfirm(user._id);
+  //     },
+  //   });
+  // };
 
   const onFilter = (text: string) => {
     setCurrentPage(1)
@@ -116,83 +117,84 @@ const BlogList = () => {
 
   // Form submit handle functions
 
-  const onCoursesAddFormSubmit = (newCourse: Course) => {
-    courseCreateApi(newCourse)
-      .then(() => {
-        fetchCourse(currentPage, pageSize, filter);
-        setConfirmLoading(false);
-        onClickCancel();
-        notification.success({
-          message: 'Successfully created.',
-        });
-      })
-      .catch(error => {
-        setConfirmLoading(false);
-        notification.error({
-          message: error.message
-        });
-      });
-  }
+  // const onCoursesAddFormSubmit = (newCourse: Course) => {
+  //   courseCreateApi(newCourse)
+  //     .then(() => {
+  //       fetchCourse(currentPage, pageSize, filter);
+  //       setConfirmLoading(false);
+  //       onClickCancel();
+  //       notification.success({
+  //         message: 'Successfully created.',
+  //       });
+  //     })
+  //     .catch(error => {
+  //       setConfirmLoading(false);
+  //       notification.error({
+  //         message: error.message
+  //       });
+  //     });
+  // }
 
-  const onCourseUpdateFormSubmit = (newCourse: Course, id: string) => {
-    courseUpdateApi(newCourse, id)
-      .then(() => {
-        fetchCourse(currentPage, pageSize, filter);
-        setConfirmLoading(false);
-        onClickCancel();
-        notification.success({
-          message: 'Successfully updated.',
-        });
-      })
-      .catch(error => {
-        setConfirmLoading(false);
-        notification.error({
-          message: error.message
-        });
-      });
-  }
+  // const onCourseUpdateFormSubmit = (newCourse: Course, id: string) => {
+  //   courseUpdateApi(newCourse, id)
+  //     .then(() => {
+  //       fetchCourse(currentPage, pageSize, filter);
+  //       setConfirmLoading(false);
+  //       onClickCancel();
+  //       notification.success({
+  //         message: 'Successfully updated.',
+  //       });
+  //     })
+  //     .catch(error => {
+  //       setConfirmLoading(false);
+  //       notification.error({
+  //         message: error.message
+  //       });
+  //     });
+  // }
 
-  const onCourseDeleteConfirm = (id: string) => {
-    courseDeleteApi(id)
-      .then(() => {
-        fetchCourse(currentPage, pageSize, filter);
-        notification.success({
-          message: 'Successfully deleted.',
-        });
-      })
-      .catch(error => {
-        notification.error({
-          message: error.message
-        });
-      });
-  }
+
+
+  // const onCourseDeleteConfirm = (id: string) => {
+  //   courseDeleteApi(id)
+  //     .then(() => {
+  //       fetchCourse(currentPage, pageSize, filter);
+  //       notification.success({
+  //         message: 'Successfully deleted.',
+  //       });
+  //     })
+  //     .catch(error => {
+  //       notification.error({
+  //         message: error.message
+  //       });
+  //     });
+  // }
 
   return (
     <>
       <div className="flex justify-between items-center pb-4">
-        <Title level={2} className='mb-0'>Course List</Title>
+        <Title level={2} className='mb-0'>Blog List</Title>
 
         <Button type="primary" onClick={showModal} size={'large'}>
-          Add Courses
+          Add Blog
         </Button>
       </div>
       <div className="table-container">
-        <AdvanceSearchAndFilter onFilter={onFilter} classes={true} expired={true}/>
 
-        <CoursesTable
+        <BlogTable
           data={course}
           loading={isLoading}
           currentPage={currentPage}
           pageSize={pageSize}
           onEdit={onClickCourseEdit}
-          onDelete={onClickCourseDelete}
+          // onDelete={}
         />
 
-        <PaginationWithParams
+        {/* <PaginationWithParams
           currentPage={currentPage}
           totalItems={totalElement}
           onPageChange={onChangePagination}
-        />
+        /> */}
       </div>
 
       <Modal
@@ -211,7 +213,7 @@ const BlogList = () => {
         ]}
         width={810}
       >
-        <CourseForm
+        <BlogForm
           key={formKey}
           form={form}
           values={editCourse}

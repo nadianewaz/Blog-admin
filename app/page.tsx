@@ -1,6 +1,12 @@
-import {permanentRedirect} from "next/navigation";
+import React from "react";
 
-export default function Page() {
-  permanentRedirect('/dashboard')
-  return <div><p>Wrong page..</p></div>
+// @Components
+import BlogList from "@/components/containers/blog/BlogList";
+
+export default async function BlogPage() {
+    return (
+        <div className='p-4'>
+            <BlogList></BlogList>
+        </div>
+    )
 }

@@ -2,8 +2,8 @@ import React from 'react';
 
 import {Button, Space, Table, Tag} from 'antd';
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
-import { Course } from '@/models';
-import DateAndTimeView from '../ui/DateAndTimeView';
+import { Course } from '@/models/coursesType';
+// import DateAndTimeView from '../ui/DateAndTimeView';
 
 const {Column} = Table;
 
@@ -13,16 +13,16 @@ type Props = {
     pageSize: number;
     loading: boolean;
     onEdit: (classes: Course) => void;
-    onDelete: (classes: Course) => void;
+    // onDelete: (classes: Course) => void;
 }
-const CoursesTable: React.FC<Props> = (
+const BlogTable: React.FC<Props> = (
     {
         data,
         loading = true,
         currentPage,
         pageSize,
         onEdit,
-        onDelete,
+        // onDelete,
     }: Props) => {
 
     return (
@@ -45,13 +45,6 @@ const CoursesTable: React.FC<Props> = (
             <Column title="Class Name" dataIndex={['class', 'className']}/>
             <Column title="Created By" dataIndex={['createdBy', 'email']}/>
           
-            <Column title="Created Date"
-                    dataIndex="createdAt"
-                    render={(date) => <DateAndTimeView date={date} /> }/>
-
-            <Column title="Expiration Date"
-                    dataIndex="expirationDate"
-                    render={(date) => <DateAndTimeView date={date} /> }/>
 
             <Column title="Status"
                     dataIndex="isActive"
@@ -66,7 +59,7 @@ const CoursesTable: React.FC<Props> = (
                 render={(_, record: any) => (
                     <Space size="middle">
                         <Button icon={<EditOutlined/>} onClick={() => onEdit(record)}/>
-                        <Button icon={<DeleteOutlined/>} danger onClick={() => onDelete(record)}/>
+                        {/* <Button icon={<DeleteOutlined/>} danger onClick={() => onDelete(record)}/> */}
                     </Space>
                 )}
             />
@@ -74,4 +67,4 @@ const CoursesTable: React.FC<Props> = (
     )
 }
 
-export default CoursesTable;
+export default BlogTable;

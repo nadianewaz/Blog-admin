@@ -1,4 +1,4 @@
-const courseTypes = [
+const blogTypes = [
   {
     value: '01',
     label: 'Question Bank'
@@ -13,4 +13,4 @@ const courseTypes = [
   }
 ]
 
-export default courseTypes;
+export default blogTypes;

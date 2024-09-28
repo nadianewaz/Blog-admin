@@ -7,12 +7,11 @@ const {TextArea} = Input;
 import dayjs from "dayjs";
 
 // @Services
-import {classListApi} from '@/lib/services/classes';
+// import {classListApi} from '@/lib/services/classes';
 
 // @Component
-import DebounceSelect from "@/components/ui/DebounceSelect";
-import courseTypes from "@/lib/constants/courseTypes";
-import useCustomFormRules from "@/lib/hooks/useCustomFormRules";
+import courseTypes from "@/lib/constants/blogTypes";
+
 
 
 interface Props {
@@ -20,9 +19,8 @@ interface Props {
     values?: any
 }
 
-const CourseForm = ({form, values}: Props) => {
+const BlogForm = ({form, values}: Props) => {
     const dateFormat: string = 'DD-MM-YYYY';
-    const { getEmptyCheckRules } = useCustomFormRules()
 
     useEffect(() => {
         if (!!values) {
@@ -58,7 +56,6 @@ const CourseForm = ({form, values}: Props) => {
                         className='!mb-2'
                         rules={[
                           {required: true, message: 'Please input your course name.'},
-                            getEmptyCheckRules('Course name')
                         ]}
                     >
                         <Input/>
@@ -86,12 +83,12 @@ const CourseForm = ({form, values}: Props) => {
                         name="classes"
                         rules={[{required: true, message: 'Please input your class'}]}
                     >
-                        <DebounceSelect
+                        {/* <DebounceSelect
                             placeholder="Search.."
                             style={{width: '100%'}}
                             labelKey="className"
                             fetchOptions={classListApi}
-                        />
+                        /> */}
                     </Form.Item>
                 </Col>
                 <Col span={12}>
@@ -101,7 +98,6 @@ const CourseForm = ({form, values}: Props) => {
                       className='!mb-2'
                       rules={[
                         {required: true, message: 'Please input your course category.'},
-                          getEmptyCheckRules('Course name')
                       ]}
                     >
                         <Input/>
@@ -174,4 +170,4 @@ const CourseForm = ({form, values}: Props) => {
     );
 };
 
-export default CourseForm;
+export default BlogForm;
